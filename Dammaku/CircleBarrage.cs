@@ -39,8 +39,9 @@ namespace Dammaku
             double da = 2 * Math.PI / GeneratingNum;
             for (int i = 0; i < GeneratingNum; i++)
             {
-                var v = new SizeF((float)(Speed * Math.Cos(a)), (float)(Speed * Math.Sin(a)));
+                var v = new SizeF((float)(Speed * Math.Sin(a)), (float)(Speed * -Math.Cos(a)));
                 bullets.Data.Add(new Bullet(Center, v, BulletSize, brush));
+                a += da;
             }
         }
     }

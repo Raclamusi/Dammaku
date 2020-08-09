@@ -32,5 +32,18 @@ namespace Dammaku
                 b.Move();
             }
         }
+
+        public void RemoveOutOfRange(Rectangle range)
+        {
+            for (int i = Data.Count - 1; i >= 0; i--)
+            {
+                if (!Data[i].Contain(range))
+                {
+                    Data.RemoveAt(i);
+                }
+            }
+        }
+
+        public void RemoveOutOfRange(Size size) => RemoveOutOfRange(new Rectangle(Point.Empty, size));
     }
 }

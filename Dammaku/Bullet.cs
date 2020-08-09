@@ -25,14 +25,23 @@ namespace Dammaku
 
         public void Draw(Graphics graphics)
         {
-            var vx = position.X - size.Width / 2;
-            var vy = position.Y - size.Height / 2;
-            graphics.FillEllipse(brush, vx, vy, size.Width, size.Height);
+            float x = position.X - size.Width / 2;
+            float y = position.Y - size.Height / 2;
+            graphics.FillEllipse(brush, x, y, size.Width, size.Height);
         }
 
         public void Move()
         {
             position += verocity;
+        }
+
+        public bool Contain(Rectangle range)
+        {
+            float l = position.X - size.Width / 2;
+            float r = l + size.Width;
+            float t = position.Y - size.Height / 2;
+            float b = t + size.Height;
+            return r >= range.Left && l <= range.Right && b >= range.Top && t <= range.Bottom;
         }
     }
 }
