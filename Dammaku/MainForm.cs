@@ -12,9 +12,33 @@ namespace Dammaku
 {
     public partial class MainForm : Form
     {
+        private Bitmap canvas;
+
+
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        public Graphics GetGraphics()
+        {
+            return Graphics.FromImage(canvas);
+        }
+
+        public void Draw()
+        {
+            pictureBox1.Image = canvas;
+        }
+
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            using (var g = GetGraphics())
+            {
+                g.Clear(Color.Transparent);
+            }
+            Draw();
         }
     }
 }
