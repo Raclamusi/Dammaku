@@ -8,7 +8,7 @@ namespace Dammaku
 {
     abstract class BulletGenerator
     {
-        private BulletList bullets;
+        protected BulletList bullets;
 
 
         public BulletList Bullets
@@ -22,8 +22,7 @@ namespace Dammaku
         {
             bullets = list ?? throw new ArgumentNullException(nameof(list));
         }
-
-
+        
         public abstract void Generate();
     }
 }

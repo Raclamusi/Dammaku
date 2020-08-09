@@ -49,6 +49,7 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="BulletGenerator.cs" />
     <Compile Include="BulletList.cs" />
+    <Compile Include="CircleBarrage.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
