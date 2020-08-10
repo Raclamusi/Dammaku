@@ -47,9 +47,9 @@ namespace Dammaku
         {
             canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             bullets = new BulletList();
-            generator = new CircleBarrage(bullets,
+            generator = new SpiralBarrage(bullets,
                 new PointF(canvas.Width / 2, 100), 5,
-                new SizeF(15, 15), Brushes.Yellow, 19);
+                new SizeF(15, 15), Brushes.Yellow, 11, 5);
 
             Clear();
             Draw();
