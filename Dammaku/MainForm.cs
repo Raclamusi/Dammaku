@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.Threading;
+using System.Drawing.Drawing2D;
 
 namespace Dammaku
 {
@@ -16,14 +19,17 @@ namespace Dammaku
 
         private BulletList bullets;
         private BulletGenerator generator;
-        uint frame = 0;
+        
+        private Stopwatch stopwatch;
+        private uint frame;
+        private double nextFrame;
 
 
         public MainForm()
         {
             InitializeComponent();
         }
-
+        
         private Graphics GetGraphics()
         {
             return Graphics.FromImage(canvas);
@@ -47,12 +53,16 @@ namespace Dammaku
         {
             canvas = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             bullets = new BulletList();
-            generator = new SpiralBarrage(bullets,
+            generator = new RipplingBarrage(bullets,
                 new PointF(canvas.Width / 2, 100), 5,
-                new SizeF(15, 15), Brushes.Yellow, 11, 5);
+                new SizeF(10, 10), Brushes.Yellow, 15, 15, 20);
+            stopwatch = new Stopwatch();
+            frame = 0;
+            nextFrame = 0;
 
             Clear();
             Draw();
+            stopwatch.Start();
             timer1.Start();
         }
 
@@ -65,9 +75,16 @@ namespace Dammaku
             }
             bullets.Move();
             bullets.RemoveOutOfRange(canvas.Size);
-            bullets.Draw(GetGraphics());
+            using (var g = GetGraphics())
+            {
+                bullets.Draw(g);
+            }
             Draw();
             frame++;
+
+            nextFrame += 1000.0 / 60.0;
+            int delay = (int)(nextFrame - stopwatch.Elapsed.TotalMilliseconds);
+            if (delay > 0) Thread.Sleep(delay);
         }
     }
 }

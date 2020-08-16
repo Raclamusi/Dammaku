@@ -35,7 +35,7 @@ namespace Dammaku
 
         public override void Generate()
         {
-            double a = 0.0;
+            double a = 0;
             double da = 2 * Math.PI / GeneratingNum;
             for (int i = 0; i < GeneratingNum; i++)
             {
