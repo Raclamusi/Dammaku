@@ -33,17 +33,27 @@ namespace Dammaku
             }
         }
 
+        public bool IsContained(Player player)
+        {
+            foreach (var b in Data)
+            {
+                if (player.Contain(b.Position))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
         public void RemoveOutOfRange(Rectangle range)
         {
             for (int i = Data.Count - 1; i >= 0; i--)
             {
-                if (!Data[i].Contain(range))
+                if (!Data[i].IntersectWith(range))
                 {
                     Data.RemoveAt(i);
                 }
             }
         }
-
-        public void RemoveOutOfRange(Size size) => RemoveOutOfRange(new Rectangle(Point.Empty, size));
     }
 }

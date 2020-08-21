@@ -15,6 +15,9 @@ namespace Dammaku
         private Brush brush;
 
 
+        public PointF Position => position;
+
+
         public Bullet(PointF position, SizeF verocity, SizeF size, Brush brush)
         {
             this.position = position;
@@ -35,13 +38,43 @@ namespace Dammaku
             position += verocity;
         }
 
+        public bool Contain(PointF pt)
+        {
+            float l = position.X - size.Width / 2;
+            float t = position.Y - size.Height / 2;
+            return new RectangleF(new PointF(l, t), size).Contains(pt);
+        }
+
         public bool Contain(Rectangle range)
         {
             float l = position.X - size.Width / 2;
             float r = l + size.Width;
             float t = position.Y - size.Height / 2;
             float b = t + size.Height;
+            return l >= range.Left && r <= range.Right && t >= range.Top && b <= range.Bottom;
+        }
+
+        public bool Contain(RectangleF range)
+        {
+            float l = position.X - size.Width / 2;
+            float t = position.Y - size.Height / 2;
+            return range.Contains(new RectangleF(new PointF(l, t), size));
+        }
+
+        public bool IntersectWith(Rectangle range)
+        {
+            float l = position.X - size.Width / 2;
+            float r = l + size.Width;
+            float t = position.Y - size.Height / 2;
+            float b = t + size.Height;
             return r >= range.Left && l <= range.Right && b >= range.Top && t <= range.Bottom;
+        }
+
+        public bool IntersectWith(RectangleF range)
+        {
+            float l = position.X - size.Width / 2;
+            float t = position.Y - size.Height / 2;
+            return range.IntersectsWith(new RectangleF(new PointF(l, t), size));
         }
     }
 }
